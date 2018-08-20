@@ -11,7 +11,7 @@ public class PubSvcApplication {
 
 	@RequestMapping("/")
 	public String hello() {
-	  return "Hello From Pub App V1!";
+	  return "Hello From Pub App V2!";
 	}
 
 	public static void main(String[] args) {
