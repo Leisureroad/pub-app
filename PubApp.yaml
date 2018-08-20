@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pub-svc
+  labels:
+    app: pub-svc
+spec:
+  ports:
+  - port: 8080
+    name: http
+  selector:
+    app: pub-app
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: pub-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pub-app
+        version: v1
+    spec:
+      containers:
+      - name: pub-app
+        image: leisureroad/pub-app
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
