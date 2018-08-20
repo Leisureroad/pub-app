@@ -26,6 +26,6 @@ spec:
       containers:
       - name: pub-app
         image: leisureroad/pub-app
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
