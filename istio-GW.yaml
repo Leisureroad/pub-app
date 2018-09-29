@@ -1,0 +1,33 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: pub-svc-gw
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - foo.fliu.top
+    - soo.fliu.top
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: pub-svc-vs-gw
+spec:
+  hosts:
+  - foo.fliu.top
+  - soo.fliu.top
+  gateways:
+  - pub-svc-gw 
+  http:
+  - route:
+    - destination:
+        port:
+          number: 8080
+        host: pub-svc
+#        subset: v2

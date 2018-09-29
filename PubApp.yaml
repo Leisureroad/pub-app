@@ -5,6 +5,7 @@ metadata:
   labels:
     app: pub-svc
 spec:
+  type: LoadBalancer
   ports:
   - port: 8080
     name: http
@@ -14,7 +15,7 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: pub-app
+  name: pub-app-v1
 spec:
   replicas: 1
   template:
@@ -25,7 +26,26 @@ spec:
     spec:
       containers:
       - name: pub-app
-        image: leisureroad/pub-app
+        image: leisureroad/pub-app:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: pub-app-v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pub-app
+        version: v2
+    spec:
+      containers:
+      - name: pub-app
+        image: leisureroad/pub-app:v2
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
